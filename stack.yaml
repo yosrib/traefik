@@ -8,28 +8,31 @@ services:
     command:
       - --providers.docker
       - --providers.docker.exposedbydefault=false
-      - --providers.docker.swarmmode=true
-      - --providers.docker.network=traefik_proxy
+      - --providers.docker.swarmmode
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --api
       - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.email=yosribahri@gmail.com
-      - --certificatesresolvers.leresolver.acme.storage=/data/acme.json
+      - --certificatesresolvers.leresolver.acme.storage=/certificates/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
+      - --api
+      - --accesslog
       #- --log.level=DEBUG
-      #- --accesslog
       #- --api.dashboard=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /home/ubuntu/traefik/acme.json:/data/acme.json
+      - /home/ubuntu/traefik/acme.json:/certificates/acme.json
     networks:
       - proxy
     deploy:
       placement:
         constraints:
           - node.role == manager
-      #labels:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=proxy
+        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
       #  - traefik.http.routers.dashboard.rule=Host(`dashboard.nlpcloud.io`)
       #  - traefik.http.routers.dashboard.service=api@internal
       #  - traefik.http.middlewares.auth.basicauth.users=yosri.<your basic auth hashed password>.
