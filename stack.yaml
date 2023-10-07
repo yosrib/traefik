@@ -9,7 +9,7 @@ services:
       - --providers.docker.swarmmode
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --providers.docker.network=traefik
+      - --providers.docker.network=proxy
       - --api
       - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.email=yosribahri@gmail.com
@@ -22,7 +22,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/ubuntu/traefik/acme.json:/data/acme.json
     networks:
-      - traefik
+      - proxy
     deploy:
       placement:
         constraints:
@@ -34,4 +34,4 @@ services:
       #  - traefik.http.routers.dashboard.middlewares=auth
 
 networks:
-  traefik:
+  proxy:
