@@ -31,8 +31,8 @@ services:
       labels:
         - traefik.enable=true
         - traefik.docker.network=proxy
-        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
-        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
+        #- traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+        #- traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
       #  - traefik.http.routers.dashboard.rule=Host(`dashboard.nlpcloud.io`)
       #  - traefik.http.routers.dashboard.service=api@internal
       #  - traefik.http.middlewares.auth.basicauth.users=yosri.<your basic auth hashed password>.
