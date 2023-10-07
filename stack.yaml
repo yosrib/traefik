@@ -7,11 +7,22 @@ services:
       - "443:443"
     command:
       - --providers.docker.swarmmode
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker.network=traefik
+      - --api
+      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.leresolver.acme.email=yosribahri@gmail.com
+      - --certificatesresolvers.leresolver.acme.storage=/data/acme.json
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
       #- --log.level=DEBUG
       #- --accesslog
       #- --api.dashboard=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/ubuntu/traefik/acme.json:/data/acme.json
+    networks:
+      - traefik
     deploy:
       placement:
         constraints:
@@ -21,3 +32,6 @@ services:
       #  - traefik.http.routers.dashboard.service=api@internal
       #  - traefik.http.middlewares.auth.basicauth.users=yosri.<your basic auth hashed password>.
       #  - traefik.http.routers.dashboard.middlewares=auth
+
+networks:
+  traefik:
