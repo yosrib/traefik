@@ -11,14 +11,15 @@ services:
       - --providers.docker.swarmmode
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      #- --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.email=yosribahri@gmail.com
       - --certificatesresolvers.leresolver.acme.storage=/certificates/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
       - --api
       - --accesslog
+      - --log
+      - --api.dashboard=true
       #- --log.level=DEBUG
-      #- --api.dashboard=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/ubuntu/traefik/acme.json:/certificates/acme.json
