@@ -29,7 +29,7 @@ services:
         constraints:
           - node.role == manager
       labels:
-        - traefik.enable=true
+        #- traefik.enable=true
         - traefik.docker.network=proxy
         #- traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
         #- traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
