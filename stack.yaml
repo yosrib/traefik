@@ -36,10 +36,10 @@ services:
         - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
         - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
         - traefik.http.routers.traefik-public-http.rule=Host(`dashboard.traefik.devengine.fr`)
-        - traefik.http.routers.traefik-public-http.entrypoints=http
+        - traefik.http.routers.traefik-public-http.entrypoints=web
         - traefik.http.routers.traefik-public-http.middlewares=https-redirect
         - traefik.http.routers.traefik-public-https.rule=Host(`dashboard.traefik.devengine.fr`)
-        - traefik.http.routers.traefik-public-https.entrypoints=https
+        - traefik.http.routers.traefik-public-https.entrypoints=websecure
         - traefik.http.routers.traefik-public-https.tls=true
         - traefik.http.routers.traefik-public-https.service=api@internal
         - traefik.http.routers.traefik-public-https.tls.certresolver=leresolver
