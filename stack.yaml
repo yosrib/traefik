@@ -23,14 +23,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/ubuntu/traefik/acme.json:/certificates/acme.json
     networks:
-      - proxy
+      - traefik-public
     deploy:
       placement:
         constraints:
           - node.role == manager
       labels:
         #- traefik.enable=true
-        - traefik.docker.network=proxy
+        - traefik.docker.network=traefik-public
         #- traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
         #- traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
       #  - traefik.http.routers.dashboard.rule=Host(`dashboard.nlpcloud.io`)
@@ -39,4 +39,4 @@ services:
       #  - traefik.http.routers.dashboard.middlewares=auth
 
 networks:
-  proxy:
+  traefik-public:
