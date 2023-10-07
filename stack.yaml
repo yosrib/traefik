@@ -6,10 +6,12 @@ services:
       - "80:80"
       - "443:443"
     command:
-      - --providers.docker.swarmmode
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmmode=true
+      - --providers.docker.network=proxy
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --providers.docker.network=proxy
       - --api
       - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.email=yosribahri@gmail.com
