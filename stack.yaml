@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  traefik:
+    image: traefik:v2.10
+    ports:
+      - "80:80"
+    command:
+      - --providers.docker.swarmmode
+      #- --log.level=DEBUG
+      #- --accesslog
+      #- --api.dashboard=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      #labels:
+      #  - traefik.http.routers.dashboard.rule=Host(`dashboard.nlpcloud.io`)
+      #  - traefik.http.routers.dashboard.service=api@internal
+      #  - traefik.http.middlewares.auth.basicauth.users=yosri.<your basic auth hashed password>.
+      #  - traefik.http.routers.dashboard.middlewares=auth
