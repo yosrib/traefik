@@ -4,18 +4,21 @@ services:
   phpmyadmin:
     image: phpmyadmin
     environment:
-      - PMA_HOST=mysql
+      #- PMA_HOST=mysql
       - UPLOAD_LIMIT=50M
+      - MYSQL_ROOT_PASSWORD=root
     deploy:
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
+        - traefik.http.middlewares.admin-auth.basicauth.users=yosri:$$apr1$$Rr7Q8zti$$vMGleJurA1mBYhFVAGIjs/
         - traefik.http.routers.pma-http.rule=Host(`pma.traefik.devengine.fr`)
         - traefik.http.routers.pma-http.entrypoints=web
         - traefik.http.routers.pma-http.middlewares=https-redirect
         - traefik.http.routers.pma-https.entrypoints=websecure
         - traefik.http.routers.pma-https.tls=true
         - traefik.http.routers.pma-https.tls.certresolver=leresolver
+        - traefik.http.routers.pma-https.middlewares=admin-auth
         - traefik.http.routers.pma-https.rule=Host(`pma.traefik.devengine.fr`)
         - traefik.http.services.pma.loadbalancer.server.port=80
       placement:
