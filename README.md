@@ -4,6 +4,7 @@
 
 docker network create --driver=overlay traefik-public
 docker network create --driver=overlay pma-public
+docker network create --driver=overlay db-server
 
 
 mkdir -p /home/ubuntu/traefik
