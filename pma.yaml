@@ -7,7 +7,7 @@ services:
       #- PMA_HOST=mysql
       - UPLOAD_LIMIT=50M
       - MYSQL_ROOT_PASSWORD=root
-      - PMA_HOST=mysql-server
+      - PMA_HOSTS=mysql
     deploy:
       labels:
         - traefik.enable=true
@@ -28,32 +28,9 @@ services:
     networks:
       - traefik-public
       - pma-public
-      - db-server
-
-  mysql-server:
-    image: mysql/mysql-server:5.7
-    networks:
-      - db-server
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - mysql-db-data:/db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: yosri
-      MYSQL_PASSWORD: yosri
-      MYSQL_DATABASE: test
-
-volumes:
-  mysql-data:
-    driver: local
-  mysql-db-data:
-    driver: local
 
 networks:
   traefik-public:
     external: true
   pma-public:
-    external: true
-  db-server:
     external: true
