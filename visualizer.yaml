@@ -10,20 +10,20 @@ services:
       placement:
         constraints:
           - node.role == manager
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=traefik-public
-      - traefik.http.middlewares.admin-auth.basicauth.users=yosri:$$apr1$$Rr7Q8zti$$vMGleJurA1mBYhFVAGIjs/
-      #- traefik.constraint-label=traefik-public
-      - traefik.http.routers.visualizer-http.rule=Host(`visualizer.traefik.devengine.fr`)
-      - traefik.http.routers.visualizer-http.entrypoints=web
-      - traefik.http.routers.visualizer-http.middlewares=https-redirect
-      - traefik.http.routers.visualizer-https.rule=Host(`visualizer.traefik.devengine.fr`)
-      - traefik.http.routers.visualizer-https.entrypoints=websecure
-      - traefik.http.routers.visualizer-https.tls=true
-      - traefik.http.routers.visualizer-https.tls.certresolver=leresolver
-      - traefik.http.routers.visualizer-https.middlewares=admin-auth
-      - traefik.http.services.visualizer.loadbalancer.server.port=8080
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.http.middlewares.admin-auth.basicauth.users=yosri:$$apr1$$Rr7Q8zti$$vMGleJurA1mBYhFVAGIjs/
+        #- traefik.constraint-label=traefik-public
+        - traefik.http.routers.visualizer-http.rule=Host(`visualizer.traefik.devengine.fr`)
+        - traefik.http.routers.visualizer-http.entrypoints=web
+        - traefik.http.routers.visualizer-http.middlewares=https-redirect
+        - traefik.http.routers.visualizer-https.rule=Host(`visualizer.traefik.devengine.fr`)
+        - traefik.http.routers.visualizer-https.entrypoints=websecure
+        - traefik.http.routers.visualizer-https.tls=true
+        - traefik.http.routers.visualizer-https.tls.certresolver=leresolver
+        - traefik.http.routers.visualizer-https.middlewares=admin-auth
+        - traefik.http.services.visualizer.loadbalancer.server.port=8080
 
 networks:
   traefik-public:
